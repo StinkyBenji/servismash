@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: mtls-dbclient-egress
+  namespace: bookinfo
+spec:
+  host: istio-egressgateway.istio-system.svc.cluster.local
+  trafficPolicy:
+    loadBalancer:
+      simple: ROUND_ROBIN
+    portLevelSettings:
+    - port:
+        number: 5432
+      tls:
+        mode: ISTIO_MUTUAL
+        sni: bookinfo-db.bookinfo-db.svc.cluster.local
