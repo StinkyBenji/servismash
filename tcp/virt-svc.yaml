@@ -1,0 +1,33 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: direct-db-through-egress-gateway
+  namespace: bookinfo
+spec:
+  hosts:
+  - bookinfo-db.bookinfo-db.svc.cluster.local
+  gateways:
+  - istio-egressgateway
+  - mesh
+  tcp:
+  - match:
+    - gateways:
+      - mesh
+      port: 5432
+    route:
+    - destination:
+        host: istio-egressgateway.istio-system.svc.cluster.local
+        port:
+          number: 5432
+      weight: 100
+  - match:
+    - gateways:
+      - istio-egressgateway
+      port: 5432
+    route:
+    - destination:
+        host: bookinfo-db.bookinfo-db.svc.cluster.local
+        port:
+          number: 5432
+      weight: 100
+

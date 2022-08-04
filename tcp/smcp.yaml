@@ -1,0 +1,37 @@
+apiVersion: maistra.io/v2
+kind: ServiceMeshControlPlane
+metadata:
+  name: basic
+  namespace: istio-system
+spec:
+  version: v2.1
+  tracing:
+    type: Jaeger
+    sampling: 10000
+  addons:
+    jaeger:
+      name: jaeger
+      install:
+        storage:
+          type: Memory
+    kiali:
+      enabled: true
+      name: kiali
+    grafana:
+      enabled: true
+    gateways:
+        egress:
+          service:
+            type: ClusterIP
+            ports:
+              - name: tcp-port-5432
+                protocol: TCP
+                port: 5432
+              - name: http2
+                protocol: TCP
+                port: 80
+                targetPort: 8080
+              - name: https
+                protocol: TCP
+                port: 443
+                targetPort: 8443

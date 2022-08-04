@@ -1,0 +1,14 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: bookinfo-db-svc
+  namespace: bookinfo
+spec:
+  hosts:
+  - bookinfo-db.bookinfo-db.svc.cluster.local
+  ports:
+  - number: 5432
+    name: tcp-port-5432
+    protocol: TCP
+  resolution: DNS
+  location: MESH_EXTERNAL
