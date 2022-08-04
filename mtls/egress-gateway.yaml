@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: istio-egressgateway
+  namespace: bookinfo
+spec:
+  selector:
+    istio: egressgateway
+  servers:
+  - port:
+      number: 5432
+      name: tls 
+      protocol: TLS
+    tls:
+      mode: ISTIO_MUTUAL
+    hosts:
+    - bookinfo-db.bookinfo-db.svc.cluster.local
