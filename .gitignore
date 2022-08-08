@@ -2,3 +2,5 @@
 /mtls/svc-entry.yaml
 /mtls/smcp.yaml
 /mtls/virt-svc.yaml
+
+/certs

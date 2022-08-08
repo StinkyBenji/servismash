@@ -1,0 +1,15 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: deny-path-headers
+  annotations:
+    "istio.io/dry-run": "true"
+spec:
+  selector:
+    matchLabels:
+      app: httpbin
+  action: DENY
+  rules:
+  - to:
+    - operation:
+        paths: ["/headers"]
