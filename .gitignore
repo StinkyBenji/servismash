@@ -3,4 +3,4 @@
 /mtls/smcp.yaml
 /mtls/virt-svc.yaml
 
-/certs
+/postgresql/postgresql-cfg/certs
